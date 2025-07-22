@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "filmes")
 public class Filme implements Serializable {
@@ -21,13 +20,13 @@ public class Filme implements Serializable {
 	private String titulo;
 	private String diretor;
 	private Integer classificacao;
-	private Integer duracao;
+	private String duracao;
 	private Integer ano_lancamento;
 	
 	public Filme() {
 	}
 
-	public Filme(Long id, String titulo, String diretor, Integer classificacao, Integer duracao,
+	public Filme(Long id, String titulo, String diretor, Integer classificacao, String duracao,
 			Integer ano_lancamento) {
 		this.id = id;
 		this.titulo = titulo;
@@ -69,11 +68,11 @@ public class Filme implements Serializable {
 		this.classificacao = classificacao;
 	}
 
-	public Integer getDuracao() {
+	public String getDuracao() {
 		return duracao;
 	}
 
-	public void setDuracao(Integer duracao) {
+	public void setDuracao(String duracao) {
 		this.duracao = duracao;
 	}
 
