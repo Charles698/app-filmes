@@ -1,12 +1,17 @@
 package com.projeto.filmes.cineapp.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +28,10 @@ public class Filme implements Serializable {
 	private String duracao;
 	private Integer ano_lancamento;
 	
+	@ManyToMany
+	@JoinTable(name = "filme_genero", joinColumns = @JoinColumn(name = "filme_id"), inverseJoinColumns = @JoinColumn(name = "genero_id"))
+	private Set<Genero> generos = new HashSet<>();
+
 	public Filme() {
 	}
 
@@ -82,6 +91,10 @@ public class Filme implements Serializable {
 
 	public void setAno_lancamento(Integer ano_lancamento) {
 		this.ano_lancamento = ano_lancamento;
+	}
+	
+	public Set<Genero> getGeneros() {
+		return generos;
 	}
 
 	@Override
