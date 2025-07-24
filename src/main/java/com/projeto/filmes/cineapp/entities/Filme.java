@@ -30,7 +30,7 @@ public class Filme implements Serializable {
 	
 	@ManyToMany
 	@JoinTable(name = "filme_genero", joinColumns = @JoinColumn(name = "filme_id"), inverseJoinColumns = @JoinColumn(name = "genero_id"))
-	private Set<Genero> generos = new HashSet<>();
+	private Set<Genero> genero = new HashSet<>();
 
 	public Filme() {
 	}
@@ -93,8 +93,8 @@ public class Filme implements Serializable {
 		this.ano_lancamento = ano_lancamento;
 	}
 	
-	public Set<Genero> getGeneros() {
-		return generos;
+	public Set<Genero> getGenero() {
+		return genero;
 	}
 
 	@Override

@@ -22,19 +22,19 @@ public class Genero implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	private String type;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "generos")
+	@ManyToMany(mappedBy = "genero")
 	private Set<Filme> filmes = new HashSet<>();
 	
 	public Genero() {
 	}
 
-	public Genero(Long id, String name) {
+	public Genero(Long id, String type) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.type = type;
 	}
 
 	public Long getId() {
@@ -45,12 +45,12 @@ public class Genero implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String gettype() {
+		return type;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void settype(String type) {
+		this.type = type;
 	}
 
 	@Override
