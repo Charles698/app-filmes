@@ -22,7 +22,7 @@ public class Genero implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String type;
+	private String tipo;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "genero")
@@ -31,10 +31,10 @@ public class Genero implements Serializable {
 	public Genero() {
 	}
 
-	public Genero(Long id, String type) {
+	public Genero(Long id, String tipo) {
 		super();
 		this.id = id;
-		this.type = type;
+		this.tipo = tipo;
 	}
 
 	public Long getId() {
@@ -45,12 +45,12 @@ public class Genero implements Serializable {
 		this.id = id;
 	}
 
-	public String gettype() {
-		return type;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void settype(String type) {
-		this.type = type;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.projeto.filmes.cineapp.entities.Filme;
+import com.projeto.filmes.cineapp.entities.dto.FilmeDTO;
 import com.projeto.filmes.cineapp.services.FilmeService;
 
 @RestController
@@ -27,29 +27,31 @@ public class FilmeResource {
 	private FilmeService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Filme>> findAll() {
-		List<Filme> list = service.findAll();
+	public ResponseEntity<List<FilmeDTO>> findAll() {
+		List<FilmeDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Filme> findById(@PathVariable Long id){
-		Filme obj = service.findById(id);
+	public ResponseEntity<FilmeDTO> findById(@PathVariable Long id){
+		FilmeDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping(value = "/nome")
-	public ResponseEntity<Filme> findByTitulo(@RequestParam("titulo") String nome){
-		Filme obj = service.findByTitulo(nome);
+	// Para buscar o título do filme que contenha espaços, use "%20"
+	// Ex: filmes/nome?titulo=bastardos%20inglorios
+	@GetMapping(value = "/buscar")
+	public ResponseEntity<FilmeDTO> findByTitulo(@RequestParam("titulo") String nome){
+		FilmeDTO obj = service.findByTitulo(nome);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Filme> insertById(@RequestBody Filme obj){
-		obj = service.insert(obj);
+	public ResponseEntity<FilmeDTO> insertById(@RequestBody FilmeDTO obj){
+		FilmeDTO filmeSalvo = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.buildAndExpand(obj).toUri();
-		return ResponseEntity.created(uri).body(obj);	
+		return ResponseEntity.created(uri).body(filmeSalvo);	
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -59,7 +61,7 @@ public class FilmeResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Filme> update(@PathVariable Long id, @RequestBody Filme obj){
+	public ResponseEntity<FilmeDTO> update(@PathVariable Long id, @RequestBody FilmeDTO obj){
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}

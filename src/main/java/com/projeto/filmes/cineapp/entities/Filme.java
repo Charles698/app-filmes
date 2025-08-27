@@ -5,13 +5,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,8 +28,12 @@ public class Filme implements Serializable {
 	private String titulo;
 	private String diretor;
 	private Integer classificacao;
-	private String duracao;
+	private Integer duracao;
 	private Integer ano_lancamento;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn()
+	private Sinopse sinopse;
 	
 	@ManyToMany
 	@JoinTable(name = "filme_genero", joinColumns = @JoinColumn(name = "filme_id"), inverseJoinColumns = @JoinColumn(name = "genero_id"))
@@ -35,14 +42,15 @@ public class Filme implements Serializable {
 	public Filme() {
 	}
 
-	public Filme(Long id, String titulo, String diretor, Integer classificacao, String duracao,
-			Integer ano_lancamento) {
+	public Filme(Long id, String titulo, String diretor, Integer classificacao, Integer duracao,
+			Integer ano_lancamento, Sinopse sinopse) {
 		this.id = id;
 		this.titulo = titulo;
 		this.diretor = diretor;
 		this.classificacao = classificacao;
 		this.duracao = duracao;
 		this.ano_lancamento = ano_lancamento;
+		this.sinopse = sinopse;
 	}
 
 	public Long getId() {
@@ -77,11 +85,11 @@ public class Filme implements Serializable {
 		this.classificacao = classificacao;
 	}
 
-	public String getDuracao() {
+	public Integer getDuracao() {
 		return duracao;
 	}
 
-	public void setDuracao(String duracao) {
+	public void setDuracao(Integer duracao) {
 		this.duracao = duracao;
 	}
 
@@ -91,6 +99,14 @@ public class Filme implements Serializable {
 
 	public void setAno_lancamento(Integer ano_lancamento) {
 		this.ano_lancamento = ano_lancamento;
+	}
+	
+	public Sinopse getSinopse() {
+		return sinopse;
+	}
+	
+	public void setSinopse(Sinopse sinopse) {
+		this.sinopse = sinopse;
 	}
 	
 	public Set<Genero> getGenero() {
