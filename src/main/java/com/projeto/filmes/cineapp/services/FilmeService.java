@@ -1,7 +1,6 @@
 package com.projeto.filmes.cineapp.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +38,12 @@ public class FilmeService {
 	
 	// Método para achar um filme pelo título do filme
 	// ex: Bastardos Inglórios
-	public FilmeDTO findByTitulo(String nome) {
-		Optional<Filme> obj = repository.findByTitulo(nome);
-		return new FilmeDTO(obj.get());
+	public List<FilmeDTO> findByTitulo(String nome) {
+		List<Filme> obj = repository.findByTituloContainingIgnoreCase(nome);
+		List<FilmeDTO> objDTO = obj.stream()
+					.map(FilmeDTO::new)
+					.collect(Collectors.toList());
+		return objDTO;
 	}
 	
 	// Método para inserir filmes 

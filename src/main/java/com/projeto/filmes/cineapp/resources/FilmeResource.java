@@ -41,8 +41,8 @@ public class FilmeResource {
 	// Para buscar o título do filme que contenha espaços, use "%20"
 	// Ex: filmes/nome?titulo=bastardos%20inglorios
 	@GetMapping(value = "/buscar")
-	public ResponseEntity<FilmeDTO> findByTitulo(@RequestParam("titulo") String nome){
-		FilmeDTO obj = service.findByTitulo(nome);
+	public ResponseEntity<List<FilmeDTO>> findByTitulo(@RequestParam("titulo") String nome){
+		List<FilmeDTO> obj = service.findByTitulo(nome);
 		return ResponseEntity.ok().body(obj);
 	}
 	

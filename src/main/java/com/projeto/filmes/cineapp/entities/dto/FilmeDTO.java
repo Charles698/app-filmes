@@ -7,6 +7,7 @@ import com.projeto.filmes.cineapp.entities.Filme;
 
 public class FilmeDTO {
 	
+	private Long id;
 	private String titulo;
 	private String diretor;
 	private Integer classificacao;
@@ -21,6 +22,7 @@ public class FilmeDTO {
 	}
 
 	public FilmeDTO(Filme filme) {
+		this.id = filme.getId();
 		this.titulo = filme.getTitulo();
 		this.diretor = filme.getDiretor();
 		this.classificacao = filme.getClassificacao();
@@ -30,7 +32,15 @@ public class FilmeDTO {
 		
 		filme.getGenero().forEach(genero -> this.generos.add(new GeneroDTO(genero)));	
 	}
-
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}
